@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { SideBar, BottomNavbar, PrivateRoute } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCurrentUser } from "./features/auth/authSlice";
-import { Following, Profile, Search } from "./features/users";
+import { Following, Profile, Search, Followers } from "./features/users";
 import { Posts, SinglePostPage } from "./features/posts";
 import { Login, Signup } from "./features/auth";
 import axios from "axios";
@@ -58,7 +58,14 @@ function App() {
                   element={<SinglePostPage />}
                 />
                 <PrivateRoute path="/profile/:userId" element={<Profile />} />
-                <PrivateRoute path="/following" element={<Following />} />
+                <PrivateRoute
+                  path="profile/:userId/following"
+                  element={<Following />}
+                />
+                <PrivateRoute
+                  path="profile/:userId/followers"
+                  element={<Followers />}
+                />
                 <PrivateRoute path="/search" element={<Search />} />
               </Routes>
             </div>
