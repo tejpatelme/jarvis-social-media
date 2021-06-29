@@ -22,7 +22,7 @@ export default function UserCard({ user }) {
           </span>
         </div>
       </div>
-      {currentUser._id !== user._id && <FollowUserButton userId={user._id} />}
+      {currentUser?._id !== user._id && <FollowUserButton userId={user._id} />}
     </div>
   );
 }
