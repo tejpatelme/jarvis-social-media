@@ -1,5 +1,6 @@
 export const API = {
   BASE: "https://jarvis-share-backend.curiousguy.repl.co",
+  BASE_POST: "https://jarvis-share-backend.curiousguy.repl.co/posts",
   GET_ALL_USERS: "https://jarvis-share-backend.curiousguy.repl.co/users",
   SIGNUP_USER: "https://jarvis-share-backend.curiousguy.repl.co/users/signup",
   LOGIN_USER: "https://jarvis-share-backend.curiousguy.repl.co/users/login",
@@ -9,4 +10,6 @@ export const API = {
   GET_SINGLE_USER:
     "https://jarvis-share-backend.curiousguy.repl.co/users/singleuser",
   POST_COMMENT: "https://jarvis-share-backend.curiousguy.repl.co/posts/comment",
+  UPDATE_USER_DETAILS:
+    "https://jarvis-share-backend.curiousguy.repl.co/users/update",
 };
