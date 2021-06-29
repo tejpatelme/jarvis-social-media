@@ -31,12 +31,7 @@ export default function SinglePostPage() {
   return (
     <>
       {post && (
-        <div
-          className="max-w-2xl p-4 md:p-5 flex-grow"
-          style={{
-            overflowWrap: "anywhere",
-          }}
-        >
+        <div className="max-w-2xl p-4 md:p-5 flex-grow">
           <div className="flex mb-3">
             <GenericAvatar
               firstName={post?.userId?.firstName}

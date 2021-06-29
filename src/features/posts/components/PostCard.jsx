@@ -45,8 +45,7 @@ export default function PostCard({ post }) {
   return (
     <div
       onClick={navigateToPost}
-      className="p-4 md:p-5 rounded ring-1 ring-purple-200 ring-opacity-20 cursor-pointer w-full"
-      style={{ overflowWrap: "anywhere" }}
+      className="p-4 md:p-5 rounded ring-1 ring-purple-200 ring-opacity-20 cursor-pointer w-full break-all"
     >
       <div className="flex">
         <div
