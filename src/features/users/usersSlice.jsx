@@ -31,6 +31,25 @@ export const updateFollowersAndFollowingCount = createAsyncThunk(
   }
 );
 
+export const updateUserDetails = createAsyncThunk(
+  "users/updateUserDetails",
+  async (editData, thunkAPI) => {
+    try {
+      const response = await axios.post(API.UPDATE_USER_DETAILS, {
+        editData: {
+          firstName: editData.firstName,
+          lastName: editData.lastName,
+          bio: editData.bio,
+        },
+      });
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const usersSlice = createSlice({
   name: "users",
   initialState: {
@@ -48,6 +67,17 @@ const usersSlice = createSlice({
     },
     resetUsers: (state) => {
       state.users = [];
+    },
+    updateEditProfileData: (state, action) => {
+      const { field, data } = action.payload;
+      state.editProfileData[field] = data;
+    },
+    initializeEditProfileData: (state, action) => {
+      state.editProfileData = {};
+      const { userData } = action.payload;
+      Object.entries(userData).forEach(
+        ([key, value]) => (state.editProfileData[key] = value)
+      );
     },
   },
   extraReducers: {
@@ -68,9 +98,26 @@ const usersSlice = createSlice({
     [updateFollowersAndFollowingCount.rejected]: (state, action) => {
       toast.error(action.payload.errorMessage);
     },
+    [updateUserDetails.pending]: () => {
+      toast.loading("Updating", { duration: 1500 });
+    },
+    [updateUserDetails.fulfilled]: (state, action) => {
+      toast.success("Successfully Updated");
+      state.editProfileData = {};
+      const { updatedUser } = action.payload;
+      const userIndex = state.users.findIndex(
+        (user) => user._id === updatedUser._id
+      );
+      state.users[userIndex] = updatedUser;
+    },
   },
 });
 
-export const { resetUsers, getSingleUser, resetUserToDisplay } =
-  usersSlice.actions;
+export const {
+  resetUsers,
+  getSingleUser,
+  resetUserToDisplay,
+  updateEditProfileData,
+  initializeEditProfileData,
+} = usersSlice.actions;
 export default usersSlice.reducer;
