@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon, GenericAvatar } from "../../components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,10 +6,12 @@ import {
   FormatISOString,
   CreateComment,
   CommentsContainer,
+  DeletePostModal,
 } from "./components/";
 import { updateLikes } from "./postsSlice";
 
 export default function SinglePostPage() {
+  const [showModal, setShowModal] = useState(false);
   const { postId } = useParams();
   const { posts } = useSelector((state) => state.posts);
   const { currentUser } = useSelector((state) => state.auth);
@@ -28,22 +30,42 @@ export default function SinglePostPage() {
     return match ? "text-purple-500" : "text-gray-500";
   };
 
+  const postAuthoredByLoggedInUser = () => currentUser._id === post.userId._id;
+
   return (
     <>
-      {post && (
+      {post && currentUser && (
         <div className="max-w-2xl p-4 md:p-5 flex-grow">
-          <div className="flex mb-3">
-            <GenericAvatar
-              firstName={post?.userId?.firstName}
-              lastName={post?.userId?.lastName}
-              userId={post?.userId?._id}
+          {showModal && (
+            <DeletePostModal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              postId={postId}
             />
-            <div>
-              <span className="block text-base font-medium text-gray-300">
-                {`${post?.userId?.firstName}  ${post?.userId?.lastName}`}
-              </span>
-              <span className="block text-base text-gray-500">{`@${post?.userId?.username}`}</span>
+          )}
+          <div className="flex mb-4 justify-between">
+            <div className="flex">
+              <GenericAvatar
+                firstName={post?.userId?.firstName}
+                lastName={post?.userId?.lastName}
+                userId={post?.userId?._id}
+              />
+              <div>
+                <span className="block text-base font-medium text-gray-300">
+                  {`${post?.userId?.firstName}  ${post?.userId?.lastName}`}
+                </span>
+                <span className="block text-base text-gray-500">{`@${post?.userId?.username}`}</span>
+              </div>
             </div>
+            {postAuthoredByLoggedInUser() && (
+              <button onClick={() => setShowModal(true)} className="self-start">
+                <Icon
+                  icon="delete"
+                  size="24"
+                  extraStyles="hover:text-red-500"
+                />
+              </button>
+            )}
           </div>
 
           <div>

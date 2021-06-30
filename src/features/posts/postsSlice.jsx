@@ -81,10 +81,23 @@ export const updatePostComments = createAsyncThunk(
   }
 );
 
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (postId, thunkAPI) => {
+    try {
+      const response = await axios.delete(`${API.BASE_POST}/${postId}`);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState: {
     status: "idle",
+    deletePostStatus: "idle",
     error: null,
     posts: [],
     currentPost: null,
@@ -116,7 +129,8 @@ const postsSlice = createSlice({
     },
     [loadPosts.rejected]: (state, action) => {
       state.status = "rejected";
-      state.error = action.payload.errorMessage;
+      state.error = action?.payload?.errorMessage;
+      toast.error("Some error has occurred");
     },
     [createNewPost.pending]: (state) => {
       state.status = "loading";
@@ -150,6 +164,23 @@ const postsSlice = createSlice({
     },
     [updatePostComments.rejected]: () => {
       toast.error("Server Error!");
+    },
+    [deletePost.pending]: (state) => {
+      toast.loading("Deleting..", { duration: 1500 });
+      state.deletePostStatus = "deleting";
+    },
+    [deletePost.fulfilled]: (state, action) => {
+      toast.success("Successfully deleted");
+      const { deletedPost } = action.payload;
+      const postToDeleteIndex = state.posts.findIndex(
+        (post) => post._id === deletedPost._id
+      );
+      state.deletePostStatus = "fulfilled";
+      state.posts.splice(postToDeleteIndex, 1);
+    },
+    [deletePost.rejected]: (state) => {
+      state.deletePostStatus = "rejected";
+      toast.error("Server Error");
     },
   },
 });
