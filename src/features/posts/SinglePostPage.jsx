@@ -81,7 +81,12 @@ export default function SinglePostPage() {
                 <Icon icon="thumb_up" size="18" color={checkIfPostLiked()} />{" "}
                 <span className=" ml-1">{post?.likes?.count}</span>
               </button>
-              <Icon icon="question_answer" size="18" color="text-gray-500" />
+              <div className="flex justify-between">
+                <Icon icon="question_answer" size="18" color="text-gray-500" />
+                <span className="ml-1 text-gray-500">
+                  {post.comments.length}
+                </span>
+              </div>
               <Icon icon="share" size="18" color="text-gray-500" />
             </div>
           </div>
