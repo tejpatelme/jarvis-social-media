@@ -20,6 +20,12 @@ export default function Login() {
   const inputStyle =
     "bg-gray-800 bg-opacity-30 rounded text-white w-full px-4 py-3 outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-40 mb-7";
 
+  const loginAsGuest = () => {
+    dispatch(
+      logInUser({ email: "daffyduck@guest.com", password: "daffyduck" })
+    );
+  };
+
   useEffect(() => {
     if (token) {
       navigate(state?.from || "/");
@@ -53,9 +59,16 @@ export default function Login() {
           />
           <button
             type="submit"
-            className="rounded px-4 py-3 font-bold text-white bg-purple-600 w-full"
+            className="rounded px-4 py-3 font-semibold text-white bg-purple-600 w-full "
           >
             Login
+          </button>
+          <div className="my-2 h-[1px] bg-gray-600"></div>
+          <button
+            className="rounded px-4 py-3 font-semibold text-white bg-purple-600 w-full"
+            onClick={loginAsGuest}
+          >
+            Login As Guest
           </button>
         </form>
 
