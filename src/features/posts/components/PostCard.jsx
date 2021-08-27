@@ -4,6 +4,7 @@ import TimeAgo from "./TimeAgo";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLikes } from "../postsSlice";
+import ReactPlayer from "react-player";
 
 export default function PostCard({ post }) {
   const {
@@ -13,6 +14,7 @@ export default function PostCard({ post }) {
     postedOn,
     comments,
     content,
+    media,
   } = post;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,9 +64,26 @@ export default function PostCard({ post }) {
             <span className="text-base text-gray-500">@{username}</span>
             <TimeAgo timestamp={postedOn} />
           </div>
-          <p className="font-light text-gray-300 mb-4 whitespace-pre-wrap">
+          <p className="font-light text-gray-300 mb-2 whitespace-pre-wrap">
             {content}
           </p>
+          {media?.mediaType === "image" && (
+            <img
+              src={media?.mediaURL}
+              alt="post media"
+              className="block mb-4 rounded object-cover"
+            />
+          )}
+          {media?.mediaType === "video" && (
+            <div className="rounded overflow-hidden">
+              <ReactPlayer
+                url={media.mediaURL}
+                controls
+                width="100%"
+                height="auto"
+              />
+            </div>
+          )}
           <div
             onClick={(e) => e.stopPropagation()}
             className="flex justify-between max-w-sm"

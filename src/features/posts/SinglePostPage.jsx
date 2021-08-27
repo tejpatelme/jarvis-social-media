@@ -9,6 +9,7 @@ import {
   DeletePostModal,
 } from "./components/";
 import { updateLikes } from "./postsSlice";
+import ReactPlayer from "react-player";
 
 export default function SinglePostPage() {
   const [showModal, setShowModal] = useState(false);
@@ -69,9 +70,26 @@ export default function SinglePostPage() {
           </div>
 
           <div>
-            <p className="mb-3 text-gray-300 whitespace-pre-wrap break-all">
+            <p className="mb-2 text-gray-300 whitespace-pre-wrap break-all">
               {post?.content}
             </p>
+            {post?.media?.mediaType === "image" && (
+              <img
+                src={post?.media?.mediaURL}
+                alt="post media"
+                className="block mb-4 rounded object-cover"
+              />
+            )}
+            {post?.media?.mediaType === "video" && (
+              <div className="rounded overflow-hidden">
+                <ReactPlayer
+                  url={post?.media.mediaURL}
+                  controls
+                  width="100%"
+                  height="auto"
+                />
+              </div>
+            )}
             <FormatISOString timestamp={post?.postedOn} />
             <div className="flex justify-between p-3 border-b border-t border-gray-800">
               <button
