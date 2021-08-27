@@ -10,6 +10,7 @@ import {
   Search,
   Followers,
   EditProfile,
+  Notifications,
 } from "./features/users";
 import { Posts, SinglePostPage } from "./features/posts";
 import { Login, Signup } from "./features/auth";
@@ -71,6 +72,10 @@ function App() {
                 <PrivateRoute
                   path="/profile/:userId/followers"
                   element={<Followers />}
+                />
+                <PrivateRoute
+                  path="/notifications"
+                  element={<Notifications />}
                 />
                 <PrivateRoute path="/editprofile" element={<EditProfile />} />
                 <PrivateRoute path="/search" element={<Search />} />
