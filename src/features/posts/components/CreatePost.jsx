@@ -61,7 +61,7 @@ export default function CreatePost() {
         </div>
       )}
       <div className="flex justify-between pt-4">
-        <label htmlFor="input-media">
+        <label title="Add Media" htmlFor="input-media">
           <Icon icon="mms" size="24" color="text-purple-600" />
           <input
             id="input-media"
