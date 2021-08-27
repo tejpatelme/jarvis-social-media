@@ -21,11 +21,16 @@ export const loadPosts = createAsyncThunk(
 
 export const createNewPost = createAsyncThunk(
   "posts/createNewPost",
-  async (content, thunkAPI) => {
+  async (post, thunkAPI) => {
     try {
       const response = await axios.post(
         "https://jarvis-share-backend.curiousguy.repl.co/posts/newpost",
-        { content }
+        post,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       return response.data;
@@ -97,6 +102,7 @@ const postsSlice = createSlice({
   name: "posts",
   initialState: {
     status: "idle",
+    addPostStatus: "idle",
     deletePostStatus: "idle",
     error: null,
     posts: [],
@@ -133,10 +139,10 @@ const postsSlice = createSlice({
       toast.error("Some error has occurred");
     },
     [createNewPost.pending]: (state) => {
-      state.status = "loading";
+      state.addPostStatus = "loading";
     },
     [createNewPost.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.addPostStatus = "fulfilled";
       state.newPostContent = "";
       state.posts.push(action.payload.newPost);
     },

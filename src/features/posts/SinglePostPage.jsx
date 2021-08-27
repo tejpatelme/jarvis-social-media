@@ -9,6 +9,7 @@ import {
   DeletePostModal,
 } from "./components/";
 import { updateLikes } from "./postsSlice";
+import ReactPlayer from "react-player";
 
 export default function SinglePostPage() {
   const [showModal, setShowModal] = useState(false);
@@ -69,9 +70,26 @@ export default function SinglePostPage() {
           </div>
 
           <div>
-            <p className="mb-3 text-gray-300 whitespace-pre-wrap break-all">
+            <p className="mb-2 text-gray-300 whitespace-pre-wrap break-all">
               {post?.content}
             </p>
+            {post?.media?.mediaType === "image" && (
+              <img
+                src={post?.media?.mediaURL}
+                alt="post media"
+                className="block mb-4 rounded object-cover"
+              />
+            )}
+            {post?.media?.mediaType === "video" && (
+              <div className="rounded overflow-hidden">
+                <ReactPlayer
+                  url={post?.media.mediaURL}
+                  controls
+                  width="100%"
+                  height="auto"
+                />
+              </div>
+            )}
             <FormatISOString timestamp={post?.postedOn} />
             <div className="flex justify-between p-3 border-b border-t border-gray-800">
               <button
@@ -81,7 +99,12 @@ export default function SinglePostPage() {
                 <Icon icon="thumb_up" size="18" color={checkIfPostLiked()} />{" "}
                 <span className=" ml-1">{post?.likes?.count}</span>
               </button>
-              <Icon icon="question_answer" size="18" color="text-gray-500" />
+              <div className="flex justify-between">
+                <Icon icon="question_answer" size="18" color="text-gray-500" />
+                <span className="ml-1 text-gray-500">
+                  {post.comments.length}
+                </span>
+              </div>
               <Icon icon="share" size="18" color="text-gray-500" />
             </div>
           </div>
