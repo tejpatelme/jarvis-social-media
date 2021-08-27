@@ -22,11 +22,11 @@ export default function SideBar() {
         <div className="space-y-2">
           <SidebarNavlink icon="home" link="/" title="Home" />
           <SidebarNavlink icon="search" link="search" title="Search" />
-          {/* <SidebarNavlink
+          <SidebarNavlink
             icon="notifications"
             link="notifications"
             title="Notifications"
-          /> */}
+          />
           <SidebarNavlink
             icon="person"
             link={`profile/${currentUser?._id}`}
