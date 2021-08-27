@@ -64,14 +64,13 @@ export default function Login() {
             Login
           </button>
           <div className="my-2 h-[1px] bg-gray-600"></div>
-          <button
-            className="rounded px-4 py-3 font-semibold text-white bg-purple-600 w-full"
-            onClick={loginAsGuest}
-          >
-            Login As Guest
-          </button>
         </form>
-
+        <button
+          className="rounded px-4 py-3 mb-3 font-semibold text-white bg-purple-600 w-full"
+          onClick={loginAsGuest}
+        >
+          Login As Guest
+        </button>
         <p className="text-white">
           Don't have an account?{" "}
           <Link to="/signup" className="text-purple-600 underline">
