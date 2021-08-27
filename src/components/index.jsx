@@ -10,3 +10,4 @@ export { default as GenericAvatar } from "./GenericAvatar";
 export { default as UserCard } from "./UserCard";
 export { default as FollowUserButton } from "./FollowUserButton";
 export { default as FeedEmptyMessage } from "./FeedEmptyMessage";
+export { default as Spinner } from "./Spinner";

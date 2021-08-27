@@ -1,11 +1,13 @@
 import "../features/users/Profile.css";
 import React from "react";
+// import { Spinner } from "./";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFollowersAndFollowingCount } from "../features/users/usersSlice";
 
 export default function FollowUserButton({ userId }) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
+  // const { followUserStatus } = useSelector((state) => state.users);
   let isFollowing;
 
   const handleFollowClick = () => {

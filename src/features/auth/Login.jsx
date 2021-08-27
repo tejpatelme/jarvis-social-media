@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/jarvis-share-logo.svg?component";
 import { logInUser } from "./authSlice";
+import { Spinner } from "../../components";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
+  const { token, loginStatus } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -59,17 +60,19 @@ export default function Login() {
           />
           <button
             type="submit"
-            className="rounded px-4 py-3 font-semibold text-white bg-purple-600 w-full "
+            className="rounded px-4 py-3 font-semibold text-white bg-purple-600 w-full disabled:cursor-not-allowed"
+            disabled={loginStatus === "loading" ? true : false}
           >
             Login
           </button>
           <div className="my-2 h-[1px] bg-gray-600"></div>
         </form>
         <button
-          className="rounded px-4 py-3 mb-3 font-semibold text-white bg-purple-600 w-full"
+          className="rounded px-4 py-3 mb-3 font-semibold text-white bg-purple-600 w-full disabled:cursor-not-allowed"
           onClick={loginAsGuest}
+          disabled={loginStatus === "loading" ? true : false}
         >
-          Login As Guest
+          {loginStatus === "loading" ? <Spinner /> : "Login As Guest"}
         </button>
         <p className="text-white">
           Don't have an account?{" "}

@@ -103,6 +103,7 @@ const postsSlice = createSlice({
   initialState: {
     status: "idle",
     addPostStatus: "idle",
+    addCommentStatus: "idle",
     deletePostStatus: "idle",
     error: null,
     posts: [],
@@ -160,7 +161,11 @@ const postsSlice = createSlice({
 
       state.posts[postToUpdate] = action.payload.updatedPost;
     },
+    [updatePostComments.pending]: (state) => {
+      state.addCommentStatus = "loading";
+    },
     [updatePostComments.fulfilled]: (state, action) => {
+      state.addCommentStatus = "fulfilled";
       const postToUpdate = state.posts.findIndex(
         (post) => post._id === action.payload.updatedPost._id
       );

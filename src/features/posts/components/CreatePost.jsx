@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { Icon } from "../../../components";
+import { Icon, Spinner } from "../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../postsSlice";
 
@@ -73,10 +73,10 @@ export default function CreatePost() {
         </label>
         <button
           onClick={handleNewPost}
-          className="rounded px-4 py-1 font-normal text-white bg-purple-600 disabled:cursor-not-allowed"
+          className="rounded px-4 w-16 py-1 font-normal text-white bg-purple-600 disabled:cursor-not-allowed"
           disabled={addPostStatus === "loading" ? true : false}
         >
-          {addPostStatus === "loading" ? "Posting..." : "Post"}
+          {addPostStatus === "loading" ? <Spinner /> : "Post"}
         </button>
       </div>
     </div>

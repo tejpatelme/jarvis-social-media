@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { GenericAvatar } from "../../../components";
+import { GenericAvatar, Spinner } from "../../../components";
 import { updatePostCommentContent, updatePostComments } from "../postsSlice";
 
 export default function CreateComment({ postId }) {
   const textAreaRef = useRef();
   const { currentUser } = useSelector((state) => state.auth);
-  const { postCommentContent } = useSelector((state) => state.posts);
+  const { postCommentContent, addCommentStatus } = useSelector(
+    (state) => state.posts
+  );
   const dispatch = useDispatch();
 
   const handleCreateComment = () => {
@@ -45,9 +47,10 @@ export default function CreateComment({ postId }) {
         <div className="flex justify-end pt-4">
           <button
             onClick={handleCreateComment}
-            className="rounded px-4 py-1 font-normal text-white bg-purple-600"
+            className="rounded w-28 px-4 py-1 font-normal text-white bg-purple-600 disabled:cursor-not-allowed"
+            disabled={addCommentStatus === "loading" ? true : false}
           >
-            Comment
+            {addCommentStatus === "loading" ? <Spinner /> : "Comment"}
           </button>
         </div>
       </div>

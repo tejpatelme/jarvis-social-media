@@ -52,6 +52,7 @@ export const initializeCurrentUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    loginStatus: "idle",
     currentUser: null,
     token: JSON.parse(localStorage?.getItem("login"))?.token || null,
   },
@@ -72,10 +73,12 @@ const authSlice = createSlice({
     [signUpUser.rejected]: (state, action) => {
       toast.error(action.payload.errorMessage);
     },
-    [logInUser.pending]: () => {
+    [logInUser.pending]: (state, action) => {
+      state.loginStatus = "loading";
       toast.loading("Logging in..", { duration: 1500 });
     },
     [logInUser.fulfilled]: (state, action) => {
+      state.loginStatus = "fulfilled";
       state.token = action.payload.token;
       state.currentUser = action.payload.user;
       localStorage.setItem(

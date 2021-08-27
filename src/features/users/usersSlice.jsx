@@ -53,6 +53,7 @@ export const updateUserDetails = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState: {
+    followUserStatus: "idle",
     userToDisplay: null,
     users: [],
   },
@@ -84,7 +85,11 @@ const usersSlice = createSlice({
     [getAllUsers.fulfilled]: (state, action) => {
       state.users = action.payload.users;
     },
+    [updateFollowersAndFollowingCount.pending]: (state) => {
+      state.followUserStatus = "loading";
+    },
     [updateFollowersAndFollowingCount.fulfilled]: (state, action) => {
+      state.followUserStatus = "fulfilled";
       const { user: currentUser, followUser } = action.payload;
       const currentUserIndex = state.users.findIndex(
         (user) => user._id === currentUser._id
