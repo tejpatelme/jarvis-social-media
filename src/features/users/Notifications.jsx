@@ -14,7 +14,10 @@ export default function Notifications() {
           <FeedEmptyMessage text="You have no new notifications" />
         ) : (
           currentUser.notifications.map((notification) => (
-            <NotificationCard notification={notification} />
+            <NotificationCard
+              key={notification._id}
+              notification={notification}
+            />
           ))
         )}
       </div>
