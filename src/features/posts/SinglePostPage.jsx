@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Icon, GenericAvatar } from "../../components";
+import { Icon, GenericAvatar, Heading } from "../../components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -35,6 +35,7 @@ export default function SinglePostPage() {
 
   return (
     <>
+      <Heading title="Post" showBackButton={true} />
       {post && currentUser && (
         <div className="max-w-2xl p-4 md:p-5 flex-grow">
           {showModal && (
@@ -81,7 +82,7 @@ export default function SinglePostPage() {
               />
             )}
             {post?.media?.mediaType === "video" && (
-              <div className="rounded overflow-hidden">
+              <div className="rounded overflow-hidden mb-4">
                 <ReactPlayer
                   url={post?.media.mediaURL}
                   controls

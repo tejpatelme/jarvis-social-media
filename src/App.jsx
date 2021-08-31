@@ -59,26 +59,41 @@ function App() {
               <SideBar />
               <BottomNavbar />
               <Routes>
-                <PrivateRoute path="/" element={<Posts />} />
-                <PrivateRoute
-                  path="/posts/:postId"
-                  element={<SinglePostPage />}
+                <Route
+                  path="*"
+                  element={
+                    <div className="border-r border-gray-800 flex-grow md:max-w-2xl min-h-screen">
+                      <Routes>
+                        <PrivateRoute path="/" element={<Posts />} />
+                        <PrivateRoute
+                          path="/posts/:postId"
+                          element={<SinglePostPage />}
+                        />
+                        <PrivateRoute
+                          path="/profile/:userId"
+                          element={<Profile />}
+                        />
+                        <PrivateRoute
+                          path="/profile/:userId/following"
+                          element={<Following />}
+                        />
+                        <PrivateRoute
+                          path="/profile/:userId/followers"
+                          element={<Followers />}
+                        />
+                        <PrivateRoute
+                          path="/notifications"
+                          element={<Notifications />}
+                        />
+                        <PrivateRoute
+                          path="/editprofile"
+                          element={<EditProfile />}
+                        />
+                        <PrivateRoute path="/search" element={<Search />} />
+                      </Routes>
+                    </div>
+                  }
                 />
-                <PrivateRoute path="/profile/:userId" element={<Profile />} />
-                <PrivateRoute
-                  path="/profile/:userId/following"
-                  element={<Following />}
-                />
-                <PrivateRoute
-                  path="/profile/:userId/followers"
-                  element={<Followers />}
-                />
-                <PrivateRoute
-                  path="/notifications"
-                  element={<Notifications />}
-                />
-                <PrivateRoute path="/editprofile" element={<EditProfile />} />
-                <PrivateRoute path="/search" element={<Search />} />
               </Routes>
             </div>
           }

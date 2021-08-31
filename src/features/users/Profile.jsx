@@ -4,6 +4,7 @@ import { ProfileDetails, UsersPosts } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSingleUser } from "./usersSlice";
+import { Heading } from "../../components";
 
 export default function Profile() {
   const { userId } = useParams();
@@ -17,15 +18,23 @@ export default function Profile() {
   }, [users]);
 
   return (
-    <div className="p-4 md:px-5 md:max-w-2xl flex-grow">
-      {!userToDisplay ? (
-        <p className="text-white">Loading...</p>
-      ) : (
-        <>
-          <ProfileDetails userId={userId} userToDisplay={userToDisplay} />
-          <UsersPosts userId={userId} />
-        </>
+    <>
+      {userToDisplay && (
+        <Heading
+          title={`${userToDisplay.firstName}  ${userToDisplay.lastName}`}
+          showBackButton={true}
+        />
       )}
-    </div>
+      <div className="p-4 md:px-5 md:max-w-2xl flex-grow">
+        {!userToDisplay ? (
+          <p className="text-white">Loading...</p>
+        ) : (
+          <>
+            <ProfileDetails userId={userId} userToDisplay={userToDisplay} />
+            <UsersPosts userId={userId} />
+          </>
+        )}
+      </div>
+    </>
   );
 }

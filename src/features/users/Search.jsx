@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { UserCard } from "../../components";
+import { Heading, UserCard } from "../../components";
 
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
@@ -17,6 +17,7 @@ export default function Search() {
 
   return (
     <>
+      <Heading title="Search" />
       {filteredUsers && (
         <div className="md:max-w-2xl flex-grow p-4 md:p-5">
           <div className="w-full mb-5">

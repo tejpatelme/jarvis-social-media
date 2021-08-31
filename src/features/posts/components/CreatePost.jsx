@@ -37,7 +37,7 @@ export default function CreatePost() {
   }, [addPostStatus]);
 
   return (
-    <div className="p-3 md:p-5 rounded ring-1 ring-purple-200 ring-opacity-20">
+    <div className="p-3 mb-3 md:p-5 rounded ring-1 ring-purple-200 ring-opacity-20">
       <p className="text-xl text-gray-200 font-light mb-3">
         What's on your mind?
       </p>

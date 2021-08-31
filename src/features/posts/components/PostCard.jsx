@@ -23,7 +23,8 @@ export default function PostCard({ post }) {
   );
   const { currentUser } = useSelector((state) => state.auth);
 
-  const handleLikeClicked = () => {
+  const handleLikeClicked = (e) => {
+    e.stopPropagation();
     dispatch(updateLikes(_id));
   };
 
@@ -75,7 +76,7 @@ export default function PostCard({ post }) {
             />
           )}
           {media?.mediaType === "video" && (
-            <div className="rounded overflow-hidden">
+            <div className="rounded overflow-hidden mb-4">
               <ReactPlayer
                 url={media.mediaURL}
                 controls
@@ -84,10 +85,7 @@ export default function PostCard({ post }) {
               />
             </div>
           )}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="flex justify-between max-w-sm"
-          >
+          <div className="flex justify-between max-w-[200px]">
             <button
               onClick={handleLikeClicked}
               className={`flex items-center rounded ${checkIfPostLiked()}`}
@@ -99,7 +97,7 @@ export default function PostCard({ post }) {
               <Icon icon="question_answer" size="18" color="text-gray-500" />
               <span className="ml-1 text-gray-500">{comments.length}</span>
             </div>
-            <Icon icon="share" size="18" color="text-gray-500" />
+            {/* <Icon icon="share" size="18" color="text-gray-500" /> */}
           </div>
         </div>
       </div>

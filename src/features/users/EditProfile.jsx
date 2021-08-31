@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { Heading } from "../../components";
 import {
   initializeEditProfileData,
   updateEditProfileData,
@@ -45,72 +46,75 @@ export default function EditProfile() {
   return (
     <>
       {editProfileData && Object.keys(editProfileData) !== 0 && (
-        <div className="p-4 md:p-5 max-w-2xl flex-grow">
-          <div className="flex mb-5">
-            <label className="block mr-3 w-full">
-              <span className="text-sm text-gray-300 mb-2 block">
-                First Name
-              </span>
-              <input
+        <>
+          <Heading title={`Edit Profile`} showBackButton={true} />
+          <div className="p-4 md:p-5 max-w-2xl flex-grow">
+            <div className="flex mb-5">
+              <label className="block mr-3 w-full">
+                <span className="text-sm text-gray-300 mb-2 block">
+                  First Name
+                </span>
+                <input
+                  onChange={(e) =>
+                    dispatch(
+                      updateEditProfileData({
+                        field: "firstName",
+                        data: e.target.value,
+                      })
+                    )
+                  }
+                  value={editProfileData.firstName}
+                  type="text"
+                  placeholder=""
+                  className={inputStyle}
+                />
+              </label>
+
+              <label className="block mr-3 w-full">
+                <span className="text-sm text-gray-300 mb-2 block">
+                  Last Name
+                </span>
+                <input
+                  value={editProfileData.lastName}
+                  onChange={(e) =>
+                    dispatch(
+                      updateEditProfileData({
+                        field: "lastName",
+                        data: e.target.value,
+                      })
+                    )
+                  }
+                  type="text"
+                  placeholder=""
+                  className={inputStyle}
+                />
+              </label>
+            </div>
+            <label className="block mb-5">
+              <span className="text-sm text-gray-300 mb-2 block">Bio</span>
+              <textarea
+                ref={textAreaRef}
                 onChange={(e) =>
                   dispatch(
                     updateEditProfileData({
-                      field: "firstName",
+                      field: "bio",
                       data: e.target.value,
                     })
                   )
                 }
-                value={editProfileData.firstName}
-                type="text"
-                placeholder=""
-                className={inputStyle}
-              />
+                value={editProfileData.bio}
+                className={textAreaStyle}
+                style={{ height: `${textAreaRef?.current?.scrollHeight}px` }}
+              ></textarea>
             </label>
 
-            <label className="block mr-3 w-full">
-              <span className="text-sm text-gray-300 mb-2 block">
-                Last Name
-              </span>
-              <input
-                value={editProfileData.lastName}
-                onChange={(e) =>
-                  dispatch(
-                    updateEditProfileData({
-                      field: "lastName",
-                      data: e.target.value,
-                    })
-                  )
-                }
-                type="text"
-                placeholder=""
-                className={inputStyle}
-              />
-            </label>
+            <div className="flex justify-end">
+              <button onClick={handleEditProfileData} className="btn-filled">
+                Update
+              </button>
+            </div>
           </div>
-          <label className="block mb-5">
-            <span className="text-sm text-gray-300 mb-2 block">Bio</span>
-            <textarea
-              ref={textAreaRef}
-              onChange={(e) =>
-                dispatch(
-                  updateEditProfileData({
-                    field: "bio",
-                    data: e.target.value,
-                  })
-                )
-              }
-              value={editProfileData.bio}
-              className={textAreaStyle}
-              style={{ height: `${textAreaRef?.current?.scrollHeight}px` }}
-            ></textarea>
-          </label>
-
-          <div className="flex justify-end">
-            <button onClick={handleEditProfileData} className="btn-filled">
-              Update
-            </button>
-          </div>
-        </div>
+        </>
       )}
     </>
   );
