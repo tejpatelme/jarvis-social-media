@@ -23,7 +23,7 @@ export default function Search() {
           <div className="w-full mb-5">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search Users..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               className="bg-gray-800 bg-opacity-60 rounded text-white w-full px-4 py-3 outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-40"
