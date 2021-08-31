@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Heading } from "../../components";
 import {
   initializeEditProfileData,
@@ -13,13 +14,14 @@ export default function EditProfile() {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const textAreaRef = useRef();
+  const navigate = useNavigate();
 
   const textAreaStyle =
     "text-gray-300 bg-gray-800 bg-opacity-60 w-full rounded overflow-hidden resize-none outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-40 p-3";
   const inputStyle =
     "bg-gray-800 bg-opacity-60 rounded text-white w-full px-4 py-2 outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-40";
 
-  const handleEditProfileData = () => {
+  const handleEditProfileData = async () => {
     if (editProfileData.firstName.trim() === "") {
       return toast.error("First Name cannot be empty");
     }
@@ -28,13 +30,14 @@ export default function EditProfile() {
       return toast.error("Last Name cannot be empty");
     }
 
-    dispatch(
+    await dispatch(
       updateUserDetails({
         firstName: editProfileData.firstName,
         lastName: editProfileData.lastName,
         bio: editProfileData.bio,
       })
     );
+    navigate(`/profile/${currentUser._id}`);
   };
 
   useEffect(() => {
