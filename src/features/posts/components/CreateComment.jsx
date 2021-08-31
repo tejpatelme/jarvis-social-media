@@ -38,7 +38,7 @@ export default function CreateComment({ postId }) {
             )
           }
           ref={textAreaRef}
-          className="text-gray-300 bg-transparent w-full overflow-hidden resize-none"
+          className="text-gray-300 w-full overflow-hidden resize-none bg-gray-800 bg-opacity-30 p-2"
           style={{
             minHeight: "30px",
             height: `${textAreaRef?.current?.scrollHeight}px`,
