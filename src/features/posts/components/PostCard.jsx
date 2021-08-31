@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLikes } from "../postsSlice";
 import ReactPlayer from "react-player";
+import CopyLink from "./CopyLink";
 
 export default function PostCard({ post }) {
   const {
@@ -85,7 +86,7 @@ export default function PostCard({ post }) {
               />
             </div>
           )}
-          <div className="flex justify-between max-w-[200px]">
+          <div className="flex justify-between max-w-full">
             <button
               onClick={handleLikeClicked}
               className={`flex items-center rounded ${checkIfPostLiked()}`}
@@ -97,7 +98,7 @@ export default function PostCard({ post }) {
               <Icon icon="question_answer" size="18" color="text-gray-500" />
               <span className="ml-1 text-gray-500">{comments.length}</span>
             </div>
-            {/* <Icon icon="share" size="18" color="text-gray-500" /> */}
+            <CopyLink postId={post._id} />
           </div>
         </div>
       </div>

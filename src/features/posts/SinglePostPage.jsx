@@ -7,6 +7,7 @@ import {
   CreateComment,
   CommentsContainer,
   DeletePostModal,
+  CopyLink,
 } from "./components/";
 import { updateLikes } from "./postsSlice";
 import ReactPlayer from "react-player";
@@ -106,7 +107,7 @@ export default function SinglePostPage() {
                   {post.comments.length}
                 </span>
               </div>
-              <Icon icon="share" size="18" color="text-gray-500" />
+              <CopyLink postId={post._id} />
             </div>
           </div>
 
