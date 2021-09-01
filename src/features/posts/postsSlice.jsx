@@ -98,6 +98,22 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const deleteComment = createAsyncThunk(
+  "posts/deleteComment",
+  async (details, thunkAPI) => {
+    const { postId, commentId } = details;
+    try {
+      const response = await axios.post(
+        `${API.POST_COMMENT}/${postId}/delete`,
+        { commentId }
+      );
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState: {
@@ -105,6 +121,7 @@ const postsSlice = createSlice({
     addPostStatus: "idle",
     addCommentStatus: "idle",
     deletePostStatus: "idle",
+    deleteCommentStatus: "idle",
     error: null,
     posts: [],
     currentPost: null,
@@ -191,6 +208,20 @@ const postsSlice = createSlice({
     },
     [deletePost.rejected]: (state) => {
       state.deletePostStatus = "rejected";
+      toast.error("Server Error");
+    },
+    [deleteComment.pending]: (state) => {
+      state.deleteCommentStatus = "loading";
+    },
+    [deleteComment.fulfilled]: (state, action) => {
+      state.deleteCommentStatus = "fulfilled";
+      const postToUpdate = state.posts.findIndex(
+        (post) => post._id === action.payload.post._id
+      );
+      state.posts[postToUpdate] = action.payload.post;
+    },
+    [deleteComment.rejected]: (state) => {
+      state.deleteCommentStatus = "rejected";
       toast.error("Server Error");
     },
   },

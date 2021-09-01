@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import { resetPosts } from "../features/posts/postsSlice";
-import { resetUsers } from "../features/users/usersSlice";
 
 export default function LogoutModal({ showModal, setShowModal }) {
   const dispatch = useDispatch();
