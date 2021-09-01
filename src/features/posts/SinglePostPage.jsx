@@ -112,7 +112,7 @@ export default function SinglePostPage() {
           </div>
 
           <CreateComment postId={postId} />
-          <CommentsContainer comments={post?.comments} />
+          <CommentsContainer post={post} />
         </div>
       )}
     </>

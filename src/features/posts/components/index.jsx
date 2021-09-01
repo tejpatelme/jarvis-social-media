@@ -7,3 +7,4 @@ export { default as CommentCard } from "./CommentCard";
 export { default as CommentsContainer } from "./CommentsContainer";
 export { default as DeletePostModal } from "./DeletePostModal";
 export { default as CopyLink } from "./CopyLink";
+export { default as DeleteCommentModal } from "./DeleteCommentModal";
