@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Logo from "../../assets/jarvis-share-logo.svg?component";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUpUser } from "./authSlice";
 import { useDispatch } from "react-redux";
 
 export default function Signup() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUserName] = useState("");
@@ -15,9 +16,12 @@ export default function Signup() {
   const inputStyle =
     "bg-gray-800 bg-opacity-30 rounded text-white w-full px-4 py-3 outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-40 mb-7";
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    dispatch(signUpUser({ firstName, lastName, username, email, password }));
+    await dispatch(
+      signUpUser({ firstName, lastName, username, email, password })
+    );
+    navigate("/login");
   };
 
   return (
