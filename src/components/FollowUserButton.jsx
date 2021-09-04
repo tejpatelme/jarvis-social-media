@@ -1,17 +1,19 @@
 import "../features/users/Profile.css";
-import React from "react";
-// import { Spinner } from "./";
+import React, { useState } from "react";
+import { Spinner } from "./";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFollowersAndFollowingCount } from "../features/users/usersSlice";
 
 export default function FollowUserButton({ userId }) {
+  const [followUserStatus, setFollowUserStatus] = useState("idle");
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
-  // const { followUserStatus } = useSelector((state) => state.users);
   let isFollowing;
 
-  const handleFollowClick = () => {
-    dispatch(updateFollowersAndFollowingCount(userId));
+  const handleFollowClick = async () => {
+    setFollowUserStatus("loading");
+    await dispatch(updateFollowersAndFollowingCount(userId));
+    setFollowUserStatus("fulfilled");
   };
 
   const checkIfFollowing = () => {
@@ -25,8 +27,12 @@ export default function FollowUserButton({ userId }) {
   };
 
   return (
-    <button onClick={handleFollowClick} className={`${buttonStyle()} w-24`}>
-      {checkIfFollowing()}
+    <button
+      disabled={followUserStatus === "loading"}
+      onClick={handleFollowClick}
+      className={`${buttonStyle()} w-24 disabled:cursor-not-allowed`}
+    >
+      {followUserStatus === "loading" ? <Spinner /> : checkIfFollowing()}
     </button>
   );
 }

@@ -61,16 +61,16 @@ export default function Login() {
           <button
             type="submit"
             className="rounded px-4 py-3 font-semibold text-white bg-purple-600 w-full disabled:cursor-not-allowed"
-            disabled={loginStatus === "loading" ? true : false}
+            disabled={loginStatus === "loading"}
           >
-            Login
+            {loginStatus === "loading" ? <Spinner /> : "Login"}
           </button>
           <div className="my-2 h-[1px] bg-gray-600"></div>
         </form>
         <button
           className="rounded px-4 py-3 mb-3 font-semibold text-white bg-purple-600 w-full disabled:cursor-not-allowed"
           onClick={loginAsGuest}
-          disabled={loginStatus === "loading" ? true : false}
+          disabled={loginStatus === "loading"}
         >
           {loginStatus === "loading" ? <Spinner /> : "Login As Guest"}
         </button>

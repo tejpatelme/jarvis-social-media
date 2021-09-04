@@ -88,6 +88,7 @@ const authSlice = createSlice({
       toast.success("Login Successful");
     },
     [logInUser.rejected]: (state, action) => {
+      state.loginStatus = "rejected";
       toast.error(action.payload.errorMessage);
     },
     [initializeCurrentUser.fulfilled]: (state, action) => {
