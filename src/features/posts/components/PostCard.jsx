@@ -71,9 +71,12 @@ export default function PostCard({ post }) {
           </p>
           {media?.mediaType === "image" && (
             <img
+              loading="lazy"
               src={media?.mediaURL}
               alt="post media"
-              className="block mb-4 rounded object-cover"
+              height="600px"
+              width="1000px"
+              className="block mb-4 rounded object-cover max-w-full h-auto"
             />
           )}
           {media?.mediaType === "video" && (
