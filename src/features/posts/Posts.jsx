@@ -7,6 +7,7 @@ import {
   FeedEmptyMessage,
   Heading,
 } from "../../components";
+import { sortPostsByDate } from "../../utils/post-utils";
 import toast from "react-hot-toast";
 
 export default function Posts() {
@@ -20,9 +21,7 @@ export default function Posts() {
     );
   });
 
-  const sortedPosts = followingUsersPosts
-    ?.slice()
-    ?.sort((a, b) => b.postedOn.localeCompare(a.postedOn));
+  const sortedPosts = sortPostsByDate(followingUsersPosts);
 
   return (
     <>
