@@ -18,6 +18,7 @@ A social media application for people to connect & interact with each other.
 Front-end: 
  - ReactJS
  - TailwindCSS
+ - Redux Toolkit
 
 Back-end: 
  - ExpressJS
