@@ -1,0 +1,7 @@
+.btn-normal {
+  @apply rounded px-2 py-1 font-normal text-purple-600 border border-purple-600;
+}
+
+.btn-filled {
+  @apply rounded px-2 py-1 font-normal text-white bg-purple-600;
+}
