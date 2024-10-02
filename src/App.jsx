@@ -1,21 +1,24 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
-import { SideBar, BottomNavbar, PrivateRoute } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCurrentUser } from "./features/auth/authSlice";
-import {
-  Following,
-  Profile,
-  Search,
-  Followers,
-  EditProfile,
-  Notifications,
-} from "./features/users";
-import { Posts, SinglePostPage } from "./features/posts";
-import { Login, Signup } from "./features/auth";
 import axios from "axios";
 import { loadPosts } from "./features/posts/postsSlice";
+
+const Following = lazy(() => import("./features/users/Following"));
+const Followers = lazy(() => import("./features/users/Followers"));
+const Profile = lazy(() => import("./features/users/Profile"));
+const Search = lazy(() => import("./features/users/Search"));
+const Notifications = lazy(() => import("./features/users/Notifications"));
+const EditProfile = lazy(() => import("./features/users/EditProfile"));
+const SideBar = lazy(() => import("./components/SideBar"));
+const BottomNavbar = lazy(() => import("./components/BottomNavbar"));
+const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
+const Posts = lazy(() => import("./features/posts/Posts"));
+const SinglePostPage = lazy(() => import("./features/posts/SinglePostPage"));
+const Login = lazy(() => import("./features/auth/Login"));
+const Signup = lazy(() => import("./features/auth/Signup"));
 
 function App() {
   const { token } = useSelector((state) => state.auth);
@@ -48,57 +51,104 @@ function App() {
 
   return (
     <div className="App max-w-6xl m-auto">
-      <Toaster position="bottom-center" />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="*"
-          element={
-            <div className="block m-auto md:flex md:items-start">
-              <SideBar />
-              <BottomNavbar />
-              <Routes>
-                <Route
-                  path="*"
-                  element={
-                    <div className="border-r border-gray-800 flex-grow md:max-w-2xl min-h-screen">
-                      <Routes>
-                        <PrivateRoute path="/" element={<Posts />} />
-                        <PrivateRoute
-                          path="/posts/:postId"
-                          element={<SinglePostPage />}
-                        />
-                        <PrivateRoute
-                          path="/profile/:userId"
-                          element={<Profile />}
-                        />
-                        <PrivateRoute
-                          path="/profile/:userId/following"
-                          element={<Following />}
-                        />
-                        <PrivateRoute
-                          path="/profile/:userId/followers"
-                          element={<Followers />}
-                        />
-                        <PrivateRoute
-                          path="/notifications"
-                          element={<Notifications />}
-                        />
-                        <PrivateRoute
-                          path="/editprofile"
-                          element={<EditProfile />}
-                        />
-                        <PrivateRoute path="/search" element={<Search />} />
-                      </Routes>
-                    </div>
-                  }
-                />
-              </Routes>
-            </div>
-          }
-        />
-      </Routes>
+      <Suspense fallback={() => <div>Loading....</div>}>
+        <Toaster position="bottom-center" />
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={() => <div>Loading....</div>}>
+                <Login />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Suspense fallback={() => <div>Loading....</div>}>
+                <Signup />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <div className="block m-auto md:flex md:items-start">
+                <SideBar />
+                <BottomNavbar />
+                <div className="border-r border-gray-800 flex-grow md:max-w-2xl min-h-screen">
+                  <Routes>
+                    <PrivateRoute
+                      path="/"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <Posts />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/posts/:postId"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <SinglePostPage />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/profile/:userId"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <Profile />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/profile/:userId/following"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <Following />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/profile/:userId/followers"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <Followers />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/notifications"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <Notifications />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/editprofile"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <EditProfile />
+                        </Suspense>
+                      }
+                    />
+                    <PrivateRoute
+                      path="/search"
+                      element={
+                        <Suspense fallback={() => <div>Loading....</div>}>
+                          <Search />
+                        </Suspense>
+                      }
+                    />
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
