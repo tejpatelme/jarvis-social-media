@@ -8,10 +8,8 @@ export const signUpUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await axios.post(API.SIGNUP_USER, user);
-      console.log(response.data);
       return response.data;
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }

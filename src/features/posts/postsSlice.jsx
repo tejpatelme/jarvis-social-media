@@ -11,7 +11,6 @@ export const loadPosts = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      console.log(err.response);
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
