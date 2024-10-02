@@ -7,13 +7,10 @@ export const loadPosts = createAsyncThunk(
   "posts/loadPosts",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(
-        "https://jarvis-share-backend.curiousguy.repl.co/posts"
-      );
+      const response = await axios.get(API.BASE_POST);
 
       return response.data;
     } catch (err) {
-      console.log(err.response);
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
@@ -23,15 +20,11 @@ export const createNewPost = createAsyncThunk(
   "posts/createNewPost",
   async (post, thunkAPI) => {
     try {
-      const response = await axios.post(
-        "https://jarvis-share-backend.curiousguy.repl.co/posts/newpost",
-        post,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(API.NEW_POST, post, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       return response.data;
     } catch (err) {
@@ -44,9 +37,7 @@ export const getSinglePost = createAsyncThunk(
   "posts/getSinglePost",
   async (postId, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `https://jarvis-share-backend.curiousguy.repl.co/posts/${postId}`
-      );
+      const response = await axios.get(`${API.BASE_POST}/${postId}`);
 
       return response.data;
     } catch (err) {
@@ -59,10 +50,7 @@ export const updateLikes = createAsyncThunk(
   "posts/updateLikes",
   async (postId, thunkAPI) => {
     try {
-      const response = await axios.post(
-        `https://jarvis-share-backend.curiousguy.repl.co/posts/likes/${postId}`,
-        postId
-      );
+      const response = await axios.post(`${API.POST_LIKES}/${postId}`, postId);
 
       return response.data;
     } catch (err) {

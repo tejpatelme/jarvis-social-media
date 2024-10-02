@@ -7,14 +7,9 @@ export const signUpUser = createAsyncThunk(
   "auth/signUpUser",
   async (user, thunkAPI) => {
     try {
-      const response = await axios.post(
-        "https://jarvis-share-backend.curiousguy.repl.co/users/signup",
-        user
-      );
-      console.log(response.data);
+      const response = await axios.post(API.SIGNUP_USER, user);
       return response.data;
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
@@ -24,10 +19,7 @@ export const logInUser = createAsyncThunk(
   "auth/loginUser",
   async (userCredentials, thunkAPI) => {
     try {
-      const response = await axios.post(
-        "https://jarvis-share-backend.curiousguy.repl.co/users/login",
-        userCredentials
-      );
+      const response = await axios.post(API.LOGIN_USER, userCredentials);
 
       return response.data;
     } catch (err) {
