@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initializeCurrentUser } from "./features/auth/authSlice";
 import axios from "axios";
 import { loadPosts } from "./features/posts/postsSlice";
+import GenericPageSkeleton from "./components/GenericPageSkeleton";
 
 const Following = lazy(() => import("./features/users/Following"));
 const Followers = lazy(() => import("./features/users/Followers"));
@@ -51,13 +52,13 @@ function App() {
 
   return (
     <div className="App max-w-6xl m-auto">
-      <Suspense fallback={() => <div>Loading....</div>}>
+      <Suspense fallback={<GenericPageSkeleton />}>
         <Toaster position="bottom-center" />
         <Routes>
           <Route
             path="/login"
             element={
-              <Suspense fallback={() => <div>Loading....</div>}>
+              <Suspense fallback={<GenericPageSkeleton />}>
                 <Login />
               </Suspense>
             }
@@ -65,7 +66,7 @@ function App() {
           <Route
             path="/signup"
             element={
-              <Suspense fallback={() => <div>Loading....</div>}>
+              <Suspense fallback={<GenericPageSkeleton />}>
                 <Signup />
               </Suspense>
             }
@@ -81,7 +82,7 @@ function App() {
                     <PrivateRoute
                       path="/"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <Posts />
                         </Suspense>
                       }
@@ -89,7 +90,7 @@ function App() {
                     <PrivateRoute
                       path="/posts/:postId"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <SinglePostPage />
                         </Suspense>
                       }
@@ -97,7 +98,7 @@ function App() {
                     <PrivateRoute
                       path="/profile/:userId"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <Profile />
                         </Suspense>
                       }
@@ -105,7 +106,7 @@ function App() {
                     <PrivateRoute
                       path="/profile/:userId/following"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <Following />
                         </Suspense>
                       }
@@ -113,7 +114,7 @@ function App() {
                     <PrivateRoute
                       path="/profile/:userId/followers"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <Followers />
                         </Suspense>
                       }
@@ -121,7 +122,7 @@ function App() {
                     <PrivateRoute
                       path="/notifications"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <Notifications />
                         </Suspense>
                       }
@@ -129,7 +130,7 @@ function App() {
                     <PrivateRoute
                       path="/editprofile"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <EditProfile />
                         </Suspense>
                       }
@@ -137,7 +138,7 @@ function App() {
                     <PrivateRoute
                       path="/search"
                       element={
-                        <Suspense fallback={() => <div>Loading....</div>}>
+                        <Suspense fallback={<GenericPageSkeleton />}>
                           <Search />
                         </Suspense>
                       }
